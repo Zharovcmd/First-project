@@ -1,0 +1,149 @@
+package tictactoe;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String str = sc.nextLine();
+        boolean xWins = false;
+        boolean oWins = false;
+        int oz = 0;
+        int coor;
+        int coor2;
+        int z = 0;
+        
+        char[][] arr = new char[3][3];
+        
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[i].length; j++) {
+                arr[i][j] = ' ';
+            }
+        }
+        
+        
+        
+        row();
+        System.out.println("|" + ' ' + arr[0][0] + ' ' + arr[0][1] + ' ' + arr[0][2] + ' ' + '|');
+        System.out.println("|" + ' ' + arr[1][0] + ' ' + arr[1][1] + ' ' + arr[1][2] + ' ' + '|');
+        System.out.println("|" + ' ' + arr[2][0] + ' ' + arr[2][1] + ' ' + arr[2][2] + ' ' + '|');
+        row();
+        
+        while (sc.hasNextInt()) {
+            if (xWins == false && oWins == false) {
+                
+            while (true) {
+                if (!sc.hasNextInt()) {
+                    System.out.println("You should enter numbers!");
+                    break;
+                }
+                coor = sc.nextInt();
+                coor2 = sc.nextInt();
+                
+                System.out.println("Enter the coordinates: " + coor + " " + coor2);
+                if (coor < 1 || coor > 3 || coor2 < 1 || coor2 > 3) {
+                    System.out.println("Coordinates should be from 1 to 3!");
+                } else if (arr[coor - 1][coor2 - 1] == ' ' && z % 2 == 0) {
+                    arr[coor - 1][coor2 - 1] = 'X';
+                    z++;
+                    break;
+                } else if (arr[coor - 1][coor2 - 1] == ' ' && z % 2 != 0) {
+                    arr[coor - 1][coor2 - 1] = 'O';
+                    z++;
+                    break;
+                } else {
+                    System.out.println("This cell is occupied! Choose another one!");
+                }
+            }
+            
+            for (int i = 0; i < arr.length; i++) {
+                for (int j = 0; j < arr[i].length; j++) {
+                    if (arr[i][j] == 'X' || arr[i][j] == 'O') {
+                        oz++;
+                    }
+                }
+            }
+        
+            row();
+            System.out.println("|" + ' ' + arr[0][0] + ' ' + arr[0][1] + ' ' + arr[0][2] + ' ' + '|');
+            System.out.println("|" + ' ' + arr[1][0] + ' ' + arr[1][1] + ' ' + arr[1][2] + ' ' + '|');
+            System.out.println("|" + ' ' + arr[2][0] + ' ' + arr[2][1] + ' ' + arr[2][2] + ' ' + '|');
+            row();
+            
+            xWins = xWon(arr);
+            oWins = oWon(arr);
+            
+            } else if (xWins) {
+                System.out.println("X wins");
+                break;
+            } else if (oWins) {
+                System.out.println("O wins");
+                break;
+            } else if (oz > 8 && !xWins && !oWins) {
+                System.out.println("Draw");
+                break;
+            }
+        }
+    }
+    
+    public static boolean xWon(char[][] arr) {
+        boolean xWins = false;
+        if (arr[0][0] == 'X' && arr[0][1] == 'X' && arr[0][2] == 'X') {
+            xWins = true;
+        }
+        if (arr[1][0] == 'X' && arr[1][1] == 'X' && arr[1][2] == 'X') {
+            xWins = true;
+        }
+        if (arr[2][0] =='X' && arr[2][1] == 'X' && arr[2][2] == 'X') {
+            xWins = true;
+        }
+        if (arr[0][0] == 'X' && arr[1][0] == 'X' && arr[2][0] == 'X') {
+            xWins = true;
+        }
+        if (arr[0][1] == 'X' && arr[1][1] == 'X' && arr[2][1] == 'X') {
+            xWins = true;
+        }
+        if (arr[0][2] == 'X' && arr[1][2] == 'X' && arr[2][2] == 'X') {
+            xWins = true;
+        }
+        if (arr[0][0] == 'X' && arr[1][1] == 'X' && arr[2][2] == 'X') {
+            xWins = true;
+        }
+        if (arr[0][2] == 'X' && arr[1][1] == 'X' && arr[2][0] == 'X') {
+            xWins = true;
+        }
+        return xWins;
+    }
+    
+    public static boolean oWon(char[][] arr) {
+        boolean oWins = false;
+        if (arr[0][0] == 'O' && arr[0][1] == 'O' && arr[0][2] == 'O') {
+            oWins = true;
+        }
+        if (arr[1][0] == 'O' && arr[1][1] == 'O' && arr[1][2] == 'O') {
+            oWins = true;
+        }
+        if (arr[2][0] == 'O' && arr[2][1] == 'O' && arr[2][2] == 'O') {
+            oWins = true;
+        }
+        if (arr[0][0] == 'O' && arr[1][0] == 'O' && arr[2][0] == 'O') {
+            oWins = true;
+        }
+        if (arr[0][1] == 'O' && arr[1][1] == 'O' && arr[2][1] == 'O') {
+            oWins = true;
+        }
+        if (arr[0][2] == 'O' && arr[1][2] == 'O' && arr[2][2] == 'O') {
+            oWins = true;
+        }
+        if (arr[0][0] == 'O' && arr[1][1] == 'O' && arr[2][2] == 'O') {
+            oWins = true;
+        }
+        if (arr[0][2] == 'O' && arr[1][1] == 'O' && arr[2][0] == 'O') {
+            oWins = true;
+        }
+        return oWins;
+    }
+
+    public static void row() {
+            System.out.println("---------");
+    }
+}
